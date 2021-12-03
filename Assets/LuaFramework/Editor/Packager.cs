@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEngine;
 using System.IO;
 using System.Text;
@@ -43,7 +44,7 @@ public class Packager {
 
     [MenuItem("LuaFramework/Build Windows Resource", false, 102)]
     public static void BuildWindowsResource() {
-        BuildAssetResource(BuildTarget.StandaloneWindows);
+        BuildAssetResource(BuildTarget.StandaloneOSX);
     }
 
     /// <summary>
@@ -69,13 +70,17 @@ public class Packager {
         if (AppConst.ExampleMode) {
             HandleExampleBundle();
         }
+        
         string resPath = "Assets/" + AppConst.AssetDir;
         BuildPipeline.BuildAssetBundles(resPath, maps.ToArray(), BuildAssetBundleOptions.None, target);
+        // CreateSceneAll(target);
         BuildFileIndex();
 
         string streamDir = Application.dataPath + "/" + AppConst.LuaTempDir;
         if (Directory.Exists(streamDir)) Directory.Delete(streamDir, true);
         AssetDatabase.Refresh();
+
+        
     }
 
     static void AddBuildMap(string bundleName, string pattern, string path) {
@@ -161,6 +166,8 @@ public class Packager {
 
         AddBuildMap("prompt_asset" + AppConst.ExtName, "*.png", "Assets/LuaFramework/Examples/Textures/Prompt");
         AddBuildMap("shared_asset" + AppConst.ExtName, "*.png", "Assets/LuaFramework/Examples/Textures/Shared");
+        AddBuildMap("all_scene" + AppConst.ExtName, "*.unity", "Assets/LuaFramework/Scenes");
+        
     }
 
     /// <summary>
@@ -218,11 +225,15 @@ public class Packager {
         for (int i = 0; i < files.Count; i++) {
             string file = files[i];
             string ext = Path.GetExtension(file);
-            if (file.EndsWith(".meta") || file.Contains(".DS_Store")) continue;
+            if (file.EndsWith(".meta") || file.Contains(".DS_Store") || file.Contains(".idea")) continue;
 
             string md5 = Util.md5file(file);
             string value = file.Replace(resPath, string.Empty);
-            sw.WriteLine(value + "|" + md5);
+            byte[] data = File.ReadAllBytes (file);
+            Util.Log(file + " : " + data.Length);
+            float sizeNum = data.Length / 1024f;
+            string size = float.Parse(sizeNum.ToString("#0.00"))  + "";
+            sw.WriteLine(String.Format("{0}|{1}|{2}",value,md5,size));
         }
         sw.Close(); fs.Close();
     }

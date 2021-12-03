@@ -1,0 +1,16 @@
+
+Library/
+package/
+Assets/StreamingAssets/
+.idea/
+.vs/
+**/.DS_Store
+Assets/LuaFramework/ToLua/Source/Generate/
+**/**.meta
+Assets/Resources/Lua/
+ProjectSettings/
+obj/
+Logs/
+Packages/
+Temp/
+UserSettings/

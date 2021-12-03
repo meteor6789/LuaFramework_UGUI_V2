@@ -17,6 +17,7 @@ require "Controller/PromptCtrl"
 
 --管理器--
 Game = {};
+Game = {};
 local this = Game;
 
 local game; 
@@ -32,26 +33,32 @@ end
 
 --初始化完成，发送链接服务器信息--
 function Game.OnInitOK()
-    AppConst.SocketPort = 2012;
-    AppConst.SocketAddress = "127.0.0.1";
-    networkMgr:SendConnect();
-
+    --AppConst.SocketPort = 2012;
+    --AppConst.SocketAddress = "127.0.0.1";
+    --networkMgr:SendConnect();
+    --
     --注册LuaView--
     this.InitViewPanels();
 
-    this.test_class_func();
-    this.test_pblua_func();
-    this.test_cjson_func();
-    this.test_pbc_func();
-    this.test_lpeg_func();
-    this.test_sproto_func();
-    coroutine.start(this.test_coroutine);
+    --this.test_class_func();
+    --this.test_pblua_func();
+    --this.test_cjson_func();
+    --this.test_pbc_func();
+    --this.test_lpeg_func();
+    --this.test_sproto_func();
+    --coroutine.start(this.test_coroutine);
 
-    CtrlManager.Init();
-    local ctrl = CtrlManager.GetCtrl(CtrlNames.Prompt);
-    if ctrl ~= nil and AppConst.ExampleMode == 1 then
-        ctrl:Awake();
-    end
+    --CtrlManager.Init();
+    --local ctrl = CtrlManager.GetCtrl(CtrlNames.Prompt);
+    --if ctrl ~= nil and AppConst.ExampleMode == 1 then
+    --    ctrl:Awake();
+    --end
+    logWarn('resMgr  LoadScene--->>>');
+    resMgr:LoadScene("all_scene.unity3d","HallScene", function()
+        print("LoadScene HallScene success")
+        SceneManager.LoadScene("HallScene")
+    end)
+    --resMgr:testFunc("from lua")
        
     logWarn('LuaFramework InitOK--->>>');
 end

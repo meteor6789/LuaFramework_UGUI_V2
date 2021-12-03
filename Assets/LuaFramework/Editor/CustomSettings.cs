@@ -30,7 +30,7 @@ public static class CustomSettings
         typeof(UnityEngine.Resources),
         typeof(UnityEngine.Physics),
         typeof(UnityEngine.RenderSettings),
-        typeof(UnityEngine.QualitySettings),
+        //typeof(UnityEngine.QualitySettings),
         typeof(UnityEngine.GL),
         typeof(UnityEngine.Graphics),
     };
@@ -88,7 +88,7 @@ public static class CustomSettings
         _GT(typeof(Component)),
         _GT(typeof(Transform)),
         _GT(typeof(Material)),
-        _GT(typeof(Light)),
+        //_GT(typeof(Light)),
         _GT(typeof(Rigidbody)),
         _GT(typeof(Camera)),
         _GT(typeof(AudioSource)),
@@ -113,7 +113,7 @@ public static class CustomSettings
         _GT(typeof(CameraClearFlags)),
         _GT(typeof(AudioClip)),
         _GT(typeof(AssetBundle)),
-        _GT(typeof(ParticleSystem)),
+        //_GT(typeof(ParticleSystem)),
         _GT(typeof(AsyncOperation)).SetBaseType(typeof(System.Object)),
         _GT(typeof(LightType)),
         _GT(typeof(SleepTimeout)),
@@ -127,7 +127,7 @@ public static class CustomSettings
         _GT(typeof(Space)),
 
 
-        _GT(typeof(MeshRenderer)),
+        //_GT(typeof(MeshRenderer)),
 #if !UNITY_5_4_OR_NEWER
         _GT(typeof(ParticleEmitter)),
         _GT(typeof(ParticleRenderer)),
@@ -150,10 +150,11 @@ public static class CustomSettings
 
         _GT(typeof(QualitySettings)),
         _GT(typeof(RenderSettings)),
+        _GT(typeof(UnityEngine.SceneManagement.SceneManager)),
 #if UNITY_2019
         _GT(typeof(SkinWeights)),
 #else
-        _GT(typeof(BlendWeights)),
+        _GT(typeof(SkinWeights)),
 #endif
         _GT(typeof(RenderTexture)), 
 		_GT(typeof(Resources)),      
@@ -200,7 +201,7 @@ public static class CustomSettings
 #if UNITY_2019
         typeof(SkinWeights),
 #else
-        typeof(BlendWeights),
+        typeof(SkinWeights),
 #endif
         typeof(RenderTexture),
         typeof(Rigidbody),

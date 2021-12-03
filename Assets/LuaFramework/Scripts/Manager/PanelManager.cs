@@ -19,13 +19,13 @@ namespace LuaFramework {
         }
 
         /// <summary>
-        /// ´´½¨Ãæ°å£¬ÇëÇó×ÊÔ´¹ÜÀíÆ÷
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="type"></param>
         public void CreatePanel(string name, LuaFunction func = null) {
             string assetName = name + "Panel";
             string abName = name.ToLower() + AppConst.ExtName;
-            if (Parent.FindChild(name) != null) return;
+            if (Parent.Find(name) != null) return;
 
 #if ASYNC_MODE
             ResManager.LoadPrefab(abName, assetName, delegate(UnityEngine.Object[] objs) {
@@ -40,7 +40,6 @@ namespace LuaFramework {
                 go.transform.localScale = Vector3.one;
                 go.transform.localPosition = Vector3.zero;
                 go.AddComponent<LuaBehaviour>();
-
                 if (func != null) func.Call(go);
                 Debug.LogWarning("CreatePanel::>> " + name + " " + prefab);
             });
@@ -62,12 +61,12 @@ namespace LuaFramework {
         }
 
         /// <summary>
-        /// ¹Ø±ÕÃæ°å
+        /// ï¿½Ø±ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="name"></param>
         public void ClosePanel(string name) {
             var panelName = name + "Panel";
-            var panelObj = Parent.FindChild(panelName);
+            var panelObj = Parent.Find(panelName);
             if (panelObj == null) return;
             Destroy(panelObj.gameObject);
         }

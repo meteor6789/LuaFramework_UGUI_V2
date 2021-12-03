@@ -31,10 +31,23 @@ using UnityEngine.SceneManagement;
 
 public class LuaClient : MonoBehaviour
 {
+    protected static LuaClient instance = null;
     public static LuaClient Instance
     {
-        get;
-        protected set;
+        get
+        {
+            if (instance == null)
+            {
+                instance = new LuaClient();
+            }
+
+            return instance;
+        }
+
+        protected set
+        {
+            instance = value;
+        }
     }
 
     protected LuaState luaState = null;

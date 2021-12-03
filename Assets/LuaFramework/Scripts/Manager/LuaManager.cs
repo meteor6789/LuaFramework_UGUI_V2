@@ -93,6 +93,7 @@ namespace LuaFramework {
                 loader.AddBundle("lua/lua_logic.unity3d");
                 loader.AddBundle("lua/lua_view.unity3d");
                 loader.AddBundle("lua/lua_controller.unity3d");
+                loader.AddBundle("lua/lua_scene.unity3d");
                 loader.AddBundle("lua/lua_misc.unity3d");
 
                 loader.AddBundle("lua/lua_protobuf.unity3d");

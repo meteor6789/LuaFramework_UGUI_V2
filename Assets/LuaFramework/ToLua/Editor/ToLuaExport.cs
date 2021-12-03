@@ -161,7 +161,12 @@ public static class ToLuaExport
         "UIDrawCall.isActive",
         "Dictionary.TryAdd",
         "KeyValuePair.Deconstruct",
-        "ParticleSystem.SetJob"
+        "ParticleSystem.SetJob",
+        "Light.SetLightDirty",
+        "MeshRenderer.receiveGI",
+        "MeshRenderer.stitchLightmapSeams",
+        "MeshRenderer.scaleInLightmap",
+        "QualitySettings.streamingMipmapsRenderersPerFrame",
     };
 
     class _MethodBase
@@ -295,8 +300,13 @@ public static class ToLuaExport
                 else
                 {
                     Type genericClass = typeof(LuaOut<>);
-                    Type t = genericClass.MakeGenericType(args[i].ParameterType.GetElementType());
-                    list.Add(t);
+                    Type argument = args[i].ParameterType.GetElementType();
+                    if (argument != null)
+                    {
+                        Type t = genericClass.MakeGenericType(argument);
+                        list.Add(t);
+                    }
+
                 }
             }
 

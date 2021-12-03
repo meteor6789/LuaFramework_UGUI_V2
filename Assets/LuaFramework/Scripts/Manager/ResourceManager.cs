@@ -58,6 +58,21 @@ namespace LuaFramework {
             LoadAsset<GameObject>(abName, assetNames, null, func);
         }
 
+        public void LoadScene(string abName, string assetName, LuaFunction func) {
+            // LoadAsset<GameObject>(abName, new string[] { assetName }, null, func);
+            StartCoroutine(_loadScene(abName, assetName, func));
+        }
+
+        private IEnumerator _loadScene(string abName, string assetName,LuaFunction func)
+        {
+           yield return StartCoroutine(OnLoadAssetBundle(abName,typeof(GameObject)));
+            if (func != null)
+            {
+                func.Call();
+                func.Dispose();
+            }
+        }
+
         string GetRealAssetPath(string abName) {
             if (abName.Equals(AppConst.AssetDir)) {
                 return abName;

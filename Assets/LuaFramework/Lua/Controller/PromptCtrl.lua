@@ -45,7 +45,8 @@ function PromptCtrl.InitPanel(objs)
 	local parent = PromptPanel.gridParent;
 	for i = 1, count do
 		local go = newObject(objs[0]);
-		go.name = 'Item'..tostring(i);
+		go.name = '#Item#'..tostring(i);
+        print(go.name)
 		go.transform:SetParent(parent);
 		go.transform.localScale = Vector3.one;
 		go.transform.localPosition = Vector3.zero;

@@ -35,7 +35,7 @@ namespace LuaFramework {
         }
 
         /// <summary>
-        /// 执行Lua方法
+        /// ???Lua????
         /// </summary>
         public object[] CallMethod(string func, params object[] args) {
             return Util.CallMethod("Network", func, args);
@@ -49,7 +49,7 @@ namespace LuaFramework {
         }
 
         /// <summary>
-        /// 交给Command，这里不想关心发给谁。
+        /// ????Command?????????????????
         /// </summary>
         void Update() {
             if (mEvents.Count > 0) {
@@ -61,21 +61,21 @@ namespace LuaFramework {
         }
 
         /// <summary>
-        /// 发送链接请求
+        /// ????????????
         /// </summary>
         public void SendConnect() {
             SocketClient.SendConnect();
         }
 
         /// <summary>
-        /// 发送SOCKET消息
+        /// ????SOCKET???
         /// </summary>
         public void SendMessage(ByteBuffer buffer) {
             SocketClient.SendMessage(buffer);
         }
 
         /// <summary>
-        /// 析构函数
+        /// ????????
         /// </summary>
         new void OnDestroy() {
             SocketClient.OnRemove();

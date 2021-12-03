@@ -160,6 +160,8 @@ namespace LuaInterface
             EndModule();//end LuaInterface
 
             BeginModule("UnityEngine");
+            UnityEngine_ParticleSystemWrap.Register(this);
+            UnityEngine_MeshRendererWrap.Register(this);
             UnityEngine_ObjectWrap.Register(this);            
             UnityEngine_CoroutineWrap.Register(this);
             EndModule(); //end UnityEngine
