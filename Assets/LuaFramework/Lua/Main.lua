@@ -9,7 +9,22 @@
 require("Common/config")
 
 function Main()
-	print("#Main start!#")
+	print("#Main start! !!!!!#")
+
+	UpdateBeat:Add(Update, self)
+end
+
+function Update()
+	--log("Update")
+	if Input.GetKeyDown(KeyCode.Escape) then
+		log("按下返回键")
+		print("UnityEngine.Application.platform:" .. tostring(UnityEngine.Application.platform))
+		if UnityEngine.Application.isEditor then
+			print("当前为编辑器模式")
+		else
+			UnityEngine.Application.Quit()
+		end
+	end
 end
 
 --场景切换通知

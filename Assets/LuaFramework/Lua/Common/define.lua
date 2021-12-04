@@ -32,3 +32,6 @@ networkMgr = LuaHelper.GetNetManager();
 
 WWW = UnityEngine.WWW;
 GameObject = UnityEngine.GameObject;
+Input = UnityEngine.Input;
+KeyCode = UnityEngine.KeyCode;
+PlatformInvoke = LuaFramework.PlatformInvoke;

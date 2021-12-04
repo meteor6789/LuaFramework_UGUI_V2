@@ -53,7 +53,6 @@ function Game.OnInitOK()
     --if ctrl ~= nil and AppConst.ExampleMode == 1 then
     --    ctrl:Awake();
     --end
-    logWarn('resMgr  LoadScene--->>>');
     resMgr:LoadScene("all_scene.unity3d","HallScene", function()
         print("LoadScene HallScene success")
         SceneManager.LoadScene("HallScene")
