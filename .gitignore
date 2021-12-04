@@ -14,3 +14,9 @@ Logs/
 Packages/
 Temp/
 UserSettings/
+runtime-src/android/.gradle/
+runtime-src/android/launcher/build/
+runtime-src/android/unityLibrary/build
+runtime-src/android/unityLibrary/symbols
+runtime-src/android/unityLibrary/src/main/assets
+runtime-src/android/unityLibrary/src/main/Il2CppOutputProject
