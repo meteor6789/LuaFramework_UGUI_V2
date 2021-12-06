@@ -18,6 +18,7 @@ public class SocketClient {
     private const int MAX_READ = 8192;
     private byte[] byteBuffer = new byte[MAX_READ];
 
+    private string split = "\n";
     // Use this for initialization
     public SocketClient() {
     }
@@ -110,7 +111,7 @@ public class SocketClient {
     void OnReceive(byte[] bytes, int length) {
         string message = System.Text.Encoding.UTF8.GetString(bytes, 0, length);
         message = buffStr + message;
-        string[] line = message.Split('\n');
+        string[] line = message.Split(split.ToCharArray());
         for (int i = 0; i < line.Length; i++)
         {
             //最后一个放入新的缓存
@@ -155,7 +156,9 @@ public class SocketClient {
     /// <summary>
     /// 发送消息
     /// </summary>
-    public void SendMessage(string message) {
+    public void SendMessage(string message)
+    {
+        message = message + "\n";
         if (client != null && client.Connected)
         {
             try

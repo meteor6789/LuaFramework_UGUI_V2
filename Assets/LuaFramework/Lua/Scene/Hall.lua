@@ -49,7 +49,7 @@ function Hall.clickEvent()
     --print(decodeData)
     --print(base64Str)
     local base64Str = "4uCfOMxYLMJWHXpnBZduPMcWHXpnBfPYSfGhRy0WHWBtEXprFLBnBfPYSfGhRy1CPaB2FLsWOyVVRZ1YRaB2BfdhRZ3g3MdhBWsWPedwOLB24uCxRZY+R8Y8BXgWFkBvGblzBWsWQedvlZmfQNGwPNCCRZP+BXhwSfmYEaCrQMGjkZdoPLB2Br4liHQBox6yFMd8OvUyPaBnBZGnQMmr3cYsBXgWFkcuEXBrGL0wGLBnBZt+PyYrmNGYSYK1SelWHXBnBZ7sPM1CPaB2BXcuFvJxGuBnBZGgOM1rPMsWHWCtQM1fQAmVQLBnBZ3YRZKYSWB2FLsWRe7fQM1dRfKYSWB23ACxPLsWQemVPcYoPxmuRaB2BZVw3Ap2Na7SEyGnRzm8SZmvEfdh4eY14a1XRYs+SMY0Ql3VRMmSEyYoPxs+3NGYS8VYOMKSEyYXRy1TFkFuEfqrPuBnBfqnONKZRzCoBXgW3yYrPe7zSuBnBZKY3ZYXPmK+QymrBXgWBfwnBfKhRMmv3edoSaB2FkOvHbSzHb81FblvGLsWOyx8BXguFbcnBZduPMdCPaB2FLsW3NGYS8Y8BXgsTJ==";
-    networkMgr:SendMessage(base64Str.."\n");
+    networkMgr:SendMessage(base64Str);
 
     --SceneManager.LoadScene("SplashScene")
     --PlatformInvoke.CallJavaFunc("com.unity3d.player.UnityPlayer","JavaFuncName","I am from lua")
