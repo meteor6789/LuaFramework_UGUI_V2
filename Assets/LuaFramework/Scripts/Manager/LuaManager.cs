@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using LuaInterface;
 
@@ -62,8 +63,27 @@ namespace LuaFramework {
             lua.OpenLibs(LuaDLL.luaopen_lpeg);
             lua.OpenLibs(LuaDLL.luaopen_bit);
             lua.OpenLibs(LuaDLL.luaopen_socket_core);
-
+#if UNITY_EDITOR
+            this.OpenLuaSocket();
+#endif
             this.OpenCJson();
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int LuaOpen_Socket_Core(IntPtr L)
+        {
+            return LuaDLL.luaopen_socket_core(L);
+        }
+ 
+        /// <summary>
+        /// 打开luasocket库
+        /// </summary>
+        protected void OpenLuaSocket()
+        {
+            LuaConst.openLuaSocket = true;
+            lua.BeginPreLoad();
+            lua.RegFunction("socket.core", LuaOpen_Socket_Core);
+            lua.EndPreLoad();
         }
 
         /// <summary>

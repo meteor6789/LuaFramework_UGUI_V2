@@ -12,12 +12,13 @@
 --function Hall.test(number)
 --    printInfo("Hall test",number)
 --end
-
+local json = require "cjson"
 Hall = {};
 local this = Hall;
-
+local TestObject = require("Scene.TestObject")
 function Hall.Awake(gameObject)
     print("Hall Awake ")
+    print("热更新成功 1")
     local skipButton = GameObject.Find("SkipButton").gameObject;
     local luaBehaviour = gameObject:GetComponent('LuaBehaviour');
     luaBehaviour:AddClick(skipButton,this.clickEvent)
@@ -25,10 +26,32 @@ end
 
 function Hall.Start()
     print("Hall Start ")
+
+    local to = TestObject.new()
+    to:testFunc()
 end
 
 function Hall.clickEvent()
     printInfo("lua clickEvent")
-    SceneManager.LoadScene("SplashScene")
+    --local finalSendData = {
+    --    gameId = 1,
+    --    version = "1.0.0",
+    --    versionId = 1,
+    --    userId = 1,
+    --    channel = "qinghuai",
+    --    areaId = 1,
+    --    cmd = 806,
+    --    area = 1,
+    --    timestamp = os.time() * 1000 ,
+    --}
+    --local decodeData = json.encode(finalSendData)
+    --local base64Str = Base64.encode(decodeData) .. "\n"
+    --print(decodeData)
+    --print(base64Str)
+    local base64Str = "4uCfOMxYLMJWHXpnBZduPMcWHXpnBfPYSfGhRy0WHWBtEXprFLBnBfPYSfGhRy1CPaB2FLsWOyVVRZ1YRaB2BfdhRZ3g3MdhBWsWPedwOLB24uCxRZY+R8Y8BXgWFkBvGblzBWsWQedvlZmfQNGwPNCCRZP+BXhwSfmYEaCrQMGjkZdoPLB2Br4liHQBox6yFMd8OvUyPaBnBZGnQMmr3cYsBXgWFkcuEXBrGL0wGLBnBZt+PyYrmNGYSYK1SelWHXBnBZ7sPM1CPaB2BXcuFvJxGuBnBZGgOM1rPMsWHWCtQM1fQAmVQLBnBZ3YRZKYSWB2FLsWRe7fQM1dRfKYSWB23ACxPLsWQemVPcYoPxmuRaB2BZVw3Ap2Na7SEyGnRzm8SZmvEfdh4eY14a1XRYs+SMY0Ql3VRMmSEyYoPxs+3NGYS8VYOMKSEyYXRy1TFkFuEfqrPuBnBfqnONKZRzCoBXgW3yYrPe7zSuBnBZKY3ZYXPmK+QymrBXgWBfwnBfKhRMmv3edoSaB2FkOvHbSzHb81FblvGLsWOyx8BXguFbcnBZduPMdCPaB2FLsW3NGYS8Y8BXgsTJ==";
+    networkMgr:SendMessage(base64Str.."\n");
+
+    --SceneManager.LoadScene("SplashScene")
+    --PlatformInvoke.CallJavaFunc("com.unity3d.player.UnityPlayer","JavaFuncName","I am from lua")
 end
 

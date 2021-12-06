@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Collections;
-using System.Collections.Generic;
 using LuaFramework;
 
 public enum DisType {
@@ -14,13 +11,12 @@ public enum DisType {
 
 public class SocketClient {
     private TcpClient client = null;
-    private NetworkStream outStream = null;
-    private MemoryStream memStream;
-    private BinaryReader reader;
+    
+    //用于存放分包遗留的数据
+    private string buffStr="";
 
     private const int MAX_READ = 8192;
     private byte[] byteBuffer = new byte[MAX_READ];
-    public static bool loggedIn = false;
 
     // Use this for initialization
     public SocketClient() {
@@ -30,8 +26,6 @@ public class SocketClient {
     /// 注册代理
     /// </summary>
     public void OnRegister() {
-        memStream = new MemoryStream();
-        reader = new BinaryReader(memStream);
     }
 
     /// <summary>
@@ -39,8 +33,6 @@ public class SocketClient {
     /// </summary>
     public void OnRemove() {
         this.Close();
-        reader.Close();
-        memStream.Close();
     }
 
     /// <summary>
@@ -73,31 +65,8 @@ public class SocketClient {
     /// 连接上服务器
     /// </summary>
     void OnConnect(IAsyncResult asr) {
-        outStream = client.GetStream();
         client.GetStream().BeginRead(byteBuffer, 0, MAX_READ, new AsyncCallback(OnRead), null);
-        NetworkManager.AddEvent(Protocal.Connect, new ByteBuffer());
-    }
-
-    /// <summary>
-    /// 写数据
-    /// </summary>
-    void WriteMessage(byte[] message) {
-        MemoryStream ms = null;
-        using (ms = new MemoryStream()) {
-            ms.Position = 0;
-            BinaryWriter writer = new BinaryWriter(ms);
-            ushort msglen = (ushort)message.Length;
-            writer.Write(msglen);
-            writer.Write(message);
-            writer.Flush();
-            if (client != null && client.Connected) {
-                //NetworkStream stream = client.GetStream();
-                byte[] payload = ms.ToArray();
-                outStream.BeginWrite(payload, 0, payload.Length, new AsyncCallback(OnWrite), null);
-            } else {
-                Debug.LogError("client.connected----->>false");
-            }
-        }
+        NetworkManager.AddEvent(Protocal.Connect, "");
     }
 
     /// <summary>
@@ -131,91 +100,39 @@ public class SocketClient {
         Close();   //关掉客户端链接
         int protocal = dis == DisType.Exception ?
         Protocal.Exception : Protocal.Disconnect;
-
-        ByteBuffer buffer = new ByteBuffer();
-        buffer.WriteShort((ushort)protocal);
-        NetworkManager.AddEvent(protocal, buffer);
+        NetworkManager.AddEvent(protocal, "");
         Debug.LogError("Connection was closed by the server:>" + msg + " Distype:>" + dis);
-    }
-
-    /// <summary>
-    /// 打印字节
-    /// </summary>
-    /// <param name="bytes"></param>
-    void PrintBytes() {
-        string returnStr = string.Empty;
-        for (int i = 0; i < byteBuffer.Length; i++) {
-            returnStr += byteBuffer[i].ToString("X2");
-        }
-        Debug.LogError(returnStr);
-    }
-
-    /// <summary>
-    /// 向链接写入数据流
-    /// </summary>
-    void OnWrite(IAsyncResult r) {
-        try {
-            outStream.EndWrite(r);
-        } catch (Exception ex) {
-            Debug.LogError("OnWrite--->>>" + ex.Message);
-        }
     }
 
     /// <summary>
     /// 接收到消息
     /// </summary>
     void OnReceive(byte[] bytes, int length) {
-        memStream.Seek(0, SeekOrigin.End);
-        memStream.Write(bytes, 0, length);
-        //Reset to beginning
-        memStream.Seek(0, SeekOrigin.Begin);
-        while (RemainingBytes() > 2) {
-            ushort messageLen = reader.ReadUInt16();
-            if (RemainingBytes() >= messageLen) {
-                MemoryStream ms = new MemoryStream();
-                BinaryWriter writer = new BinaryWriter(ms);
-                writer.Write(reader.ReadBytes(messageLen));
-                ms.Seek(0, SeekOrigin.Begin);
-                OnReceivedMessage(ms);
-            } else {
-                //Back up the position two bytes
-                memStream.Position = memStream.Position - 2;
-                break;
+        string message = System.Text.Encoding.UTF8.GetString(bytes, 0, length);
+        message = buffStr + message;
+        string[] line = message.Split('\n');
+        for (int i = 0; i < line.Length; i++)
+        {
+            //最后一个放入新的缓存
+            if (i == line.Length - 1)
+            {
+                buffStr = line[i];
+            }
+            else
+            {
+                Debug.Log(line[i]);
+                OnReceivedMessage(line[i]);
             }
         }
-        //Create a new stream with any leftover bytes
-        byte[] leftover = reader.ReadBytes((int)RemainingBytes());
-        memStream.SetLength(0);     //Clear
-        memStream.Write(leftover, 0, leftover.Length);
-    }
-
-    /// <summary>
-    /// 剩余的字节
-    /// </summary>
-    private long RemainingBytes() {
-        return memStream.Length - memStream.Position;
     }
 
     /// <summary>
     /// 接收到消息
     /// </summary>
     /// <param name="ms"></param>
-    void OnReceivedMessage(MemoryStream ms) {
-        BinaryReader r = new BinaryReader(ms);
-        byte[] message = r.ReadBytes((int)(ms.Length - ms.Position));
-        //int msglen = message.Length;
-
-        ByteBuffer buffer = new ByteBuffer(message);
-        int mainId = buffer.ReadShort();
-        NetworkManager.AddEvent(mainId, buffer);
-    }
-
-
-    /// <summary>
-    /// 会话发送
-    /// </summary>
-    void SessionSend(byte[] bytes) {
-        WriteMessage(bytes);
+    void OnReceivedMessage(string msg) {
+        NetworkManager.AddEvent(Protocal.Message, msg);
+        Util.Log("OnReceivedMessage : " + msg);
     }
 
     /// <summary>
@@ -226,7 +143,6 @@ public class SocketClient {
             if (client.Connected) client.Close();
             client = null;
         }
-        loggedIn = false;
     }
 
     /// <summary>
@@ -239,8 +155,25 @@ public class SocketClient {
     /// <summary>
     /// 发送消息
     /// </summary>
-    public void SendMessage(ByteBuffer buffer) {
-        SessionSend(buffer.ToBytes());
-        buffer.Close();
+    public void SendMessage(string message) {
+        if (client != null && client.Connected)
+        {
+            try
+            {
+                NetworkStream ns = this.client.GetStream();
+                byte[] dataMsg = System.Text.Encoding.UTF8.GetBytes(message);
+                ns.Write(dataMsg, 0, dataMsg.Length);
+                Debug.Log("Client_SendMessage:" + message);
+                ns.Flush();
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("Excep:" + ex.Message);
+            }
+        }
+        else
+        {
+            Debug.Log("not connect");
+        }
     }
 }

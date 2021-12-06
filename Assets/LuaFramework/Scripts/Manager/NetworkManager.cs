@@ -8,7 +8,7 @@ namespace LuaFramework {
     public class NetworkManager : Manager {
         private SocketClient socket;
         static readonly object m_lockObject = new object();
-        static Queue<KeyValuePair<int, ByteBuffer>> mEvents = new Queue<KeyValuePair<int, ByteBuffer>>();
+        static Queue<KeyValuePair<int, string>> mEvents = new Queue<KeyValuePair<int, string>>();
 
         SocketClient SocketClient {
             get { 
@@ -42,9 +42,9 @@ namespace LuaFramework {
         }
 
         ///------------------------------------------------------------------------------------
-        public static void AddEvent(int _event, ByteBuffer data) {
+        public static void AddEvent(int _event, string data) {
             lock (m_lockObject) {
-                mEvents.Enqueue(new KeyValuePair<int, ByteBuffer>(_event, data));
+                mEvents.Enqueue(new KeyValuePair<int, string>(_event, data));
             }
         }
 
@@ -54,7 +54,7 @@ namespace LuaFramework {
         void Update() {
             if (mEvents.Count > 0) {
                 while (mEvents.Count > 0) {
-                    KeyValuePair<int, ByteBuffer> _event = mEvents.Dequeue();
+                    KeyValuePair<int, string> _event = mEvents.Dequeue();
                     facade.SendMessageCommand(NotiConst.DISPATCH_MESSAGE, _event);
                 }
             }
@@ -70,14 +70,14 @@ namespace LuaFramework {
         /// <summary>
         /// ????SOCKET???
         /// </summary>
-        public void SendMessage(ByteBuffer buffer) {
+        public void SendMessage(string buffer) {
             SocketClient.SendMessage(buffer);
         }
 
         /// <summary>
         /// ????????
         /// </summary>
-        new void OnDestroy() {
+        void OnDestroy() {
             SocketClient.OnRemove();
             Debug.Log("~NetworkManager was destroy");
         }

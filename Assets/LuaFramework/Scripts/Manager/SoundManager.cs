@@ -12,7 +12,7 @@ namespace LuaFramework {
         }
 
         /// <summary>
-        /// 添加一个声音
+        /// ???????????
         /// </summary>
         void Add(string key, AudioClip value) {
             if (sounds[key] != null || value == null) return;
@@ -20,7 +20,7 @@ namespace LuaFramework {
         }
 
         /// <summary>
-        /// 获取一个声音
+        /// ??????????
         /// </summary>
         AudioClip Get(string key) {
             if (sounds[key] == null) return null;
@@ -28,7 +28,7 @@ namespace LuaFramework {
         }
 
         /// <summary>
-        /// 载入一个音频
+        /// ??????????
         /// </summary>
         public AudioClip LoadAudioClip(string path) {
             AudioClip ac = Get(path);
@@ -40,7 +40,7 @@ namespace LuaFramework {
         }
 
         /// <summary>
-        /// 是否播放背景音乐，默认是1：播放
+        /// ?????????????????1??????
         /// </summary>
         /// <returns></returns>
         public bool CanPlayBackSound() {
@@ -50,7 +50,7 @@ namespace LuaFramework {
         }
 
         /// <summary>
-        /// 播放背景音乐
+        /// ???????????
         /// </summary>
         /// <param name="canPlay"></param>
         public void PlayBacksound(string name, bool canPlay) {
@@ -76,7 +76,7 @@ namespace LuaFramework {
         }
 
         /// <summary>
-        /// 是否播放音效,默认是1：播放
+        /// ??????Ч,?????1??????
         /// </summary>
         /// <returns></returns>
         public bool CanPlaySoundEffect() {
@@ -86,7 +86,7 @@ namespace LuaFramework {
         }
 
         /// <summary>
-        /// 播放音频剪辑
+        /// ???????????
         /// </summary>
         /// <param name="clip"></param>
         /// <param name="position"></param>

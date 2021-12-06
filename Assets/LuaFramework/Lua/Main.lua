@@ -1,12 +1,14 @@
---package.cpath = package.cpath .. ';/Users/loon/Library/Application Support/JetBrains/Rider2021.1/plugins/EmmyLua/classes/debugger/emmy/mac/?.dylib'
+--package.cpath = package.cpath .. ';/Users/loon/Library/Application Support/JetBrains/IntelliJIdea2020.1/plugins/intellij-emmylua/classes/debugger/emmy/mac/?.dylib'
 --local dbg = require('emmy_core')
 --dbg.tcpListen('localhost', 9966)
 
---local debugger = require("mobdebug")
---debugger.start();
---主入口函数。从这里开始lua逻辑
+if UnityEngine.Application.isEditor then
+	local debugger = require("mobdebug")
+	debugger.start();
+end
 
-require("Common/config")
+require("Common.config")
+require("Common.Base64")
 
 function Main()
 	print("#Main start! !!!!!#")
