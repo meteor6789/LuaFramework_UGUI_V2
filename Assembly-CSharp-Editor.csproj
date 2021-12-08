@@ -308,6 +308,9 @@
      <Reference Include="UnityEditor.iOS.Extensions">
      <HintPath>/Applications/Unity/Hub/Editor/2021.1.7f1c1/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
      </Reference>
+     <Reference Include="Newtonsoft.Json">
+     <HintPath>/Users/loon/Documents/work/other/LuaFramework_UGUI_V2/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
+     </Reference>
      <Reference Include="Debugger">
      <HintPath>/Users/loon/Documents/work/other/LuaFramework_UGUI_V2/Assets/Plugins/Debugger.dll</HintPath>
      </Reference>
