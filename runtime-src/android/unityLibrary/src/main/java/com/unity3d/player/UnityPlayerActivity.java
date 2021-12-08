@@ -123,12 +123,6 @@ public class UnityPlayerActivity extends Activity implements IUnityPlayerLifecyc
         return super.dispatchKeyEvent(event);
     }
 
-
-    public void JavaFuncName(final String content)
-    {
-        Logger.i(content);
-    }
-
     // Pass any events not handled by (unfocused) views straight to UnityPlayer
     @Override public boolean onKeyUp(int keyCode, KeyEvent event)     { return mUnityPlayer.injectEvent(event); }
     @Override public boolean onKeyDown(int keyCode, KeyEvent event)   { return mUnityPlayer.injectEvent(event); }

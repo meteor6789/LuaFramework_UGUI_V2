@@ -34,7 +34,6 @@ public static class CustomSettings
         //typeof(UnityEngine.QualitySettings),
         typeof(UnityEngine.GL),
         typeof(UnityEngine.Graphics),
-        typeof(LuaFramework.PlatformInvoke),
     };
 
     //附加导出委托类型(在导出委托时, customTypeList 中牵扯的委托类型都会导出， 无需写在这里)
@@ -86,7 +85,6 @@ public static class CustomSettings
         //_GT(typeof(LineRenderer)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         //_GT(typeof(TrailRenderer)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),    
 #else
-                                         
         _GT(typeof(Component)),
         _GT(typeof(Transform)),
         _GT(typeof(Material)),
@@ -128,7 +126,7 @@ public static class CustomSettings
         _GT(typeof(KeyCode)),
         _GT(typeof(SkinnedMeshRenderer)),
         _GT(typeof(Space)),
-
+        _GT(typeof(PlayerPrefs)),
 
         //_GT(typeof(MeshRenderer)),
 #if !UNITY_5_4_OR_NEWER
@@ -170,7 +168,6 @@ public static class CustomSettings
         _GT(typeof(Util)),
         _GT(typeof(AppConst)),
         _GT(typeof(LuaHelper)),
-        _GT(typeof(ByteBuffer)),
         _GT(typeof(LuaBehaviour)),
 
         _GT(typeof(GameManager)),
@@ -180,9 +177,9 @@ public static class CustomSettings
         _GT(typeof(TimerManager)),
         _GT(typeof(ThreadManager)),
         _GT(typeof(NetworkManager)),
+        _GT(typeof(HttpClient)),
         _GT(typeof(ResourceManager)),	
-        _GT(typeof(PlatformInvoke)),	
-        
+        _GT(typeof(PlatformInvoke)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

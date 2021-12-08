@@ -26,30 +26,39 @@ namespace LuaFramework {
         /// 面板管理器
         /// </summary>
         public static PanelManager GetPanelManager() {
-            return AppFacade.Instance.GetManager<PanelManager>(ManagerName.Panel);
+            return AppFacade.Instance.GetComponentByName<PanelManager>(ComponentName.Panel);
         }
 
         /// <summary>
         /// 资源管理器
         /// </summary>
         public static ResourceManager GetResManager() {
-            return AppFacade.Instance.GetManager<ResourceManager>(ManagerName.Resource);
+            return AppFacade.Instance.GetComponentByName<ResourceManager>(ComponentName.Resource);
         }
 
         /// <summary>
         /// 网络管理器
         /// </summary>
         public static NetworkManager GetNetManager() {
-            return AppFacade.Instance.GetManager<NetworkManager>(ManagerName.Network);
+            return AppFacade.Instance.GetComponentByName<NetworkManager>(ComponentName.Network);
         }
 
         /// <summary>
         /// 音乐管理器
         /// </summary>
         public static SoundManager GetSoundManager() {
-            return AppFacade.Instance.GetManager<SoundManager>(ManagerName.Sound);
+            return AppFacade.Instance.GetComponentByName<SoundManager>(ComponentName.Sound);
         }
 
+        public static HttpClient GetHttpClient()
+        {
+            return AppFacade.Instance.GetComponentByName<HttpClient>(ComponentName.HttpClient);
+        }
+        
+        public static PlatformInvoke GetPlatformInvoke()
+        {
+            return AppFacade.Instance.GetComponentByName<PlatformInvoke>(ComponentName.PlatformInvoke);
+        }
 
         /// <summary>
         /// pbc/pblua函数回调

@@ -7,19 +7,17 @@ if UnityEngine.Application.isEditor then
 	debugger.start();
 end
 
-require("Common.config")
-require("Common.Base64")
+require("RequireLuaFile")
 
 function Main()
 	print("#Main start! !!!!!#")
-
 	UpdateBeat:Add(Update, self)
 end
 
 function Update()
 	--log("Update")
 	if Input.GetKeyDown(KeyCode.Escape) then
-		log("按下返回键")
+		printInfo("按下返回键")
 		print("UnityEngine.Application.platform:" .. tostring(UnityEngine.Application.platform))
 		if UnityEngine.Application.isEditor then
 			print("当前为编辑器模式")
@@ -35,6 +33,8 @@ function OnLevelWasLoaded(level)
 	Time.timeSinceLevelLoad = 0
 	print("OnLevelWasLoaded:" .. level);
 end
+
+
 
 function OnApplicationQuit()
 end

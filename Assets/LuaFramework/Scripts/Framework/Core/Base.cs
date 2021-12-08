@@ -45,7 +45,7 @@ public class Base : MonoBehaviour {
     protected LuaManager LuaManager {
         get {
             if (m_LuaMgr == null) {
-                m_LuaMgr = facade.GetManager<LuaManager>(ManagerName.Lua);
+                m_LuaMgr = facade.GetComponentByName<LuaManager>(ComponentName.Lua);
             }
             return m_LuaMgr;
         }
@@ -54,7 +54,7 @@ public class Base : MonoBehaviour {
     protected ResourceManager ResManager {
         get {
             if (m_ResMgr == null) {
-                m_ResMgr = facade.GetManager<ResourceManager>(ManagerName.Resource);
+                m_ResMgr = facade.GetComponentByName<ResourceManager>(ComponentName.Resource);
             }
             return m_ResMgr;
         }
@@ -63,7 +63,7 @@ public class Base : MonoBehaviour {
     protected NetworkManager NetManager {
         get {
             if (m_NetMgr == null) {
-                m_NetMgr = facade.GetManager<NetworkManager>(ManagerName.Network);
+                m_NetMgr = facade.GetComponentByName<NetworkManager>(ComponentName.Network);
             }
             return m_NetMgr;
         }
@@ -72,7 +72,7 @@ public class Base : MonoBehaviour {
     protected SoundManager SoundManager {
         get {
             if (m_SoundMgr == null) {
-                m_SoundMgr = facade.GetManager<SoundManager>(ManagerName.Sound);
+                m_SoundMgr = facade.GetComponentByName<SoundManager>(ComponentName.Sound);
             }
             return m_SoundMgr;
         }
@@ -81,7 +81,7 @@ public class Base : MonoBehaviour {
     protected TimerManager TimerManager {
         get {
             if (m_TimerMgr == null) {
-                m_TimerMgr = facade.GetManager<TimerManager>(ManagerName.Timer);
+                m_TimerMgr = facade.GetComponentByName<TimerManager>(ComponentName.Timer);
             }
             return m_TimerMgr;
         }
@@ -90,7 +90,7 @@ public class Base : MonoBehaviour {
     protected ThreadManager ThreadManager {
         get {
             if (m_ThreadMgr == null) {
-                m_ThreadMgr = facade.GetManager<ThreadManager>(ManagerName.Thread);
+                m_ThreadMgr = facade.GetComponentByName<ThreadManager>(ComponentName.Thread);
             }
             return m_ThreadMgr;
         }
@@ -99,7 +99,7 @@ public class Base : MonoBehaviour {
     protected ObjectPoolManager ObjPoolManager {
         get {
             if (m_ObjectPoolMgr == null) {
-                m_ObjectPoolMgr = facade.GetManager<ObjectPoolManager>(ManagerName.ObjectPool);
+                m_ObjectPoolMgr = facade.GetComponentByName<ObjectPoolManager>(ComponentName.ObjectPool);
             }
             return m_ObjectPoolMgr;
         }

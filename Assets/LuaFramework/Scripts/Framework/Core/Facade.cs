@@ -16,8 +16,8 @@ public class ControllerCommand : ICommand {
 
 public class Facade {
     protected IController m_controller;
-    static GameObject m_GameManager;
-    static Dictionary<string, object> m_Managers = new Dictionary<string, object>();
+    GameObject m_GameManager;
+    Dictionary<string, object> m_Managers = new Dictionary<string, object>();
 
     GameObject AppGameManager {
         get {
@@ -69,7 +69,7 @@ public class Facade {
     /// <summary>
     /// 添加管理器
     /// </summary>
-    public void AddManager(string typeName, object obj) {
+    public void AddComponent(string typeName, object obj) {
         if (!m_Managers.ContainsKey(typeName)) {
             m_Managers.Add(typeName, obj);
         }
@@ -78,7 +78,7 @@ public class Facade {
     /// <summary>
     /// 添加Unity对象
     /// </summary>
-    public T AddManager<T>(string typeName) where T : Component {
+    public T AddComponent<T>(string typeName) where T : Component {
         object result = null;
         m_Managers.TryGetValue(typeName, out result);
         if (result != null) {
@@ -92,7 +92,7 @@ public class Facade {
     /// <summary>
     /// 获取系统管理器
     /// </summary>
-    public T GetManager<T>(string typeName) where T : class {
+    public T GetComponentByName<T>(string typeName) where T : class {
         if (!m_Managers.ContainsKey(typeName)) {
             return default(T);
         }

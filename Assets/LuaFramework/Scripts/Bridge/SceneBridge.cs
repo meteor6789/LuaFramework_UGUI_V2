@@ -15,7 +15,7 @@ namespace LuaFramework
         // Start is called before the first frame update
         void Start()
         {
-            LuaManager.DoFile(string.Format("Scene/{0}",this.sceneName));
+            LuaManager.DoFile(string.Format("app/Scene/{0}",this.sceneName));
             gameObject.name = sceneName;
             gameObject.AddComponent<LuaBehaviour>();
             // Button skipButton = GameObject.Find("SkipButton").GetComponent<Button>();

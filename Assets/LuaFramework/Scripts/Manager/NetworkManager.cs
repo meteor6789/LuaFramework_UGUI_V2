@@ -7,6 +7,7 @@ using LuaInterface;
 namespace LuaFramework {
     public class NetworkManager : Manager {
         private SocketClient socket;
+        
         static readonly object m_lockObject = new object();
         static Queue<KeyValuePair<int, string>> mEvents = new Queue<KeyValuePair<int, string>>();
 
